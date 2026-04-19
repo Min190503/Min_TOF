@@ -22,12 +22,15 @@
 #include "i2c.h"
 #include "spi.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "vl53l1x_wrapper.h"
 #include <stdio.h>
+#include "usbd_cdc_if.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +62,8 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+char usb_buf[64];
 
 /* USER CODE END 0 */
 
@@ -95,12 +100,16 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   TOF_Result_t tof;
-  if(TOF_Init() != 0){
-	  //semsor loi
-  }
-
+    if(TOF_Init() != 0){
+  	  while(1) {
+            char err_msg[] = "Loi I2C!\r\n";
+            CDC_Transmit_FS((uint8_t*)err_msg, strlen(err_msg));
+            HAL_Delay(1000);
+        }
+    }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -111,10 +120,12 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  if(TOF_Read(&tof) == 0){
-		  // Có data mới
-		  printf("D=%d mm  S=%d  St=%d\r\n",
-				 tof.distance_mm, tof.signal_rate, tof.range_status);
-	  }
+	            // Bắn data ra USB
+	            int len = sprintf(usb_buf, "D=%d mm S=%d St=%d\r\n",
+	                                  tof.distance_mm, tof.signal_rate, tof.range_status);
+	            CDC_Transmit_FS((uint8_t*)usb_buf, len);
+	        }
+	        HAL_Delay(33);
   }
   /* USER CODE END 3 */
 }
@@ -136,13 +147,12 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 100;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 25;
+  RCC_OscInitStruct.PLL.PLLN = 192;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)

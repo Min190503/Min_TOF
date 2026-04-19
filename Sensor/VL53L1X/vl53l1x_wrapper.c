@@ -15,10 +15,10 @@ uint8_t TOF_Init(void){
 		HAL_Delay(2);
 	}
 
-	//ktra sensor ID (0xEEAC)
+	//ktra sensor ID (0xEACC)
 	status = VL53L1X_GetSensorId(TOF_I2C_ADDR, &sensor_id);
 	if(status) return status;
-	if(sensor_id != 0xEEAC) return 99; //sai sensor
+	if(sensor_id != 0xEACC) return 99; //sai sensor
 
 	//Init
 	status = VL53L1X_SensorInit(TOF_I2C_ADDR);
