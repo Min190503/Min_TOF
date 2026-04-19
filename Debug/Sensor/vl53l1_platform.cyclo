@@ -1,0 +1,9 @@
+../Sensor/vl53l1_platform.c:23:8:VL53L1_WriteMulti	2
+../Sensor/vl53l1_platform.c:29:8:VL53L1_ReadMulti	2
+../Sensor/vl53l1_platform.c:35:8:VL53L1_WrByte	1
+../Sensor/vl53l1_platform.c:39:8:VL53L1_WrWord	1
+../Sensor/vl53l1_platform.c:46:8:VL53L1_WrDWord	1
+../Sensor/vl53l1_platform.c:55:8:VL53L1_RdByte	1
+../Sensor/vl53l1_platform.c:59:8:VL53L1_RdWord	1
+../Sensor/vl53l1_platform.c:66:8:VL53L1_RdDWord	1
+../Sensor/vl53l1_platform.c:73:8:VL53L1_WaitMs	1

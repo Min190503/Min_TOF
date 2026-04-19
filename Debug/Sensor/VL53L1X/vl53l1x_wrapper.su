@@ -1,0 +1,3 @@
+../Sensor/VL53L1X/vl53l1x_wrapper.c:5:9:TOF_Init	16	static
+../Sensor/VL53L1X/vl53l1x_wrapper.c:38:9:TOF_Read	24	static
+../Sensor/VL53L1X/vl53l1x_wrapper.c:57:9:TOF_ReadBlocking	24	static
