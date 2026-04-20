@@ -31,6 +31,7 @@
 #include <stdio.h>
 #include "usbd_cdc_if.h"
 #include <string.h>
+#include "app_sensor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,14 +103,13 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-  TOF_Result_t tof;
-    if(TOF_Init() != 0){
-  	  while(1) {
-            char err_msg[] = "Loi I2C!\r\n";
-            CDC_Transmit_FS((uint8_t*)err_msg, strlen(err_msg));
-            HAL_Delay(1000);
-        }
-    }
+  if(App_Sensor_Init() != 0){
+	  while(1){
+		  char err[] = "Sensor Fail!\r\n";
+		  CDC_Transmit_FS((uint8_t*)err, strlen(err));
+		  HAL_Delay(1000);
+	  }
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -119,13 +119,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(TOF_Read(&tof) == 0){
-	            // Bắn data ra USB
-	            int len = sprintf(usb_buf, "D=%d mm S=%d St=%d\r\n",
-	                                  tof.distance_mm, tof.signal_rate, tof.range_status);
-	            CDC_Transmit_FS((uint8_t*)usb_buf, len);
-	        }
-	        HAL_Delay(33);
+	  App_Sensor_Update();
+
+	  Altitude_t  *alt = App_Sensor_GetAltitude();
+	  if(alt->is_valid){
+		  int len = sprintf(usb_buf, "R=%d F=%.1f mm\r\n",
+		                       alt->raw_mm, alt->altitude_mm);
+		  CDC_Transmit_FS((uint8_t*)usb_buf, len);
+	  }
+
+	  HAL_Delay(33);
   }
   /* USER CODE END 3 */
 }

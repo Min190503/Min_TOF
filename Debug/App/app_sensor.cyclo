@@ -1,0 +1,5 @@
+../App/app_sensor.c:21:17:MedianFilter	5
+../App/app_sensor.c:43:14:EMA_Filter	2
+../App/app_sensor.c:56:9:App_Sensor_Init	1
+../App/app_sensor.c:69:6:App_Sensor_Update	3
+../App/app_sensor.c:91:13:App_Sensor_GetAltitude	1

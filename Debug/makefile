@@ -19,6 +19,7 @@ RM := rm -rf
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include App/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -92,7 +93,7 @@ main-build: Min_OTF.elf secondary-outputs
 
 # Tool invocations
 Min_OTF.elf Min_OTF.map: $(OBJS) $(USER_OBJS) /home/min/FC_mamab_4_H743_V2/Min_OTF/STM32F411CEUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Min_OTF.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/min/FC_mamab_4_H743_V2/Min_OTF/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Min_OTF.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "Min_OTF.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/min/FC_mamab_4_H743_V2/Min_OTF/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Min_OTF.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
