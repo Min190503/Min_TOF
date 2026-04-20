@@ -16,7 +16,7 @@ OBJS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Core/Startup/%.o: ../Core/Startup/%.s Core/Startup/subdir.mk
-	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/App" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Libs" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Sensor" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Libs/MAVLink_V2/common" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Sensor/VL53L1X" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/App" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Libs" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Sensor" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Libs/MAVLink_V2/common" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Sensor/VL53L1X" -I"/home/min/FC_mamab_4_H743_V2/Min_OTF/Sensor/PMW3901" -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
 
 clean: clean-Core-2f-Startup
 

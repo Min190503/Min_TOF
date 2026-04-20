@@ -59,6 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define XSHUT_Pin GPIO_PIN_0
 #define XSHUT_GPIO_Port GPIOA
+#define PMW_RST_Pin GPIO_PIN_3
+#define PMW_RST_GPIO_Port GPIOA
 #define SPI_CS_Pin GPIO_PIN_4
 #define SPI_CS_GPIO_Port GPIOA
 

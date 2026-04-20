@@ -1,0 +1,5 @@
+../Sensor/PMW3901/pwm3901.c:10:13:pmw3901_write_reg	2
+../Sensor/PMW3901/pwm3901.c:18:16:pmw3901_read_reg	2
+../Sensor/PMW3901/pwm3901.c:28:13:pmw3901_secret_init	1
+../Sensor/PMW3901/pwm3901.c:56:9:PMW3901_Init	2
+../Sensor/PMW3901/pwm3901.c:86:6:PMW3901_Read	2

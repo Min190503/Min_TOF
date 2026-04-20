@@ -120,14 +120,16 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  App_Sensor_Update();
+	  App_SensorData_t *data = App_Sensor_GetData();
 
-	  Altitude_t  *alt = App_Sensor_GetAltitude();
-	  if(alt->is_valid){
-		  int len = sprintf(usb_buf, "R=%d F=%.1f mm\r\n",
-		                       alt->raw_mm, alt->altitude_mm);
-		  CDC_Transmit_FS((uint8_t*)usb_buf, len);
+	  if(data->alt.is_valid && data->flow.is_valid){
+	       int len = sprintf(usb_buf, "Alt=%.1f dX=%d dY=%d Sq=%d\r\n",
+	                    data->alt.altitude_mm,
+	                    data->flow.deltaX,
+	                    data->flow.deltaY,
+	                    data->flow.squal);
+	       CDC_Transmit_FS((uint8_t*)usb_buf, len);
 	  }
-
 	  HAL_Delay(33);
   }
   /* USER CODE END 3 */

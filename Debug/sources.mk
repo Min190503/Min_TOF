@@ -45,6 +45,7 @@ Drivers/STM32F4xx_HAL_Driver/Src \
 Libs/VL53L1X_ULD_API \
 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src \
 Middlewares/ST/STM32_USB_Device_Library/Core/Src \
+Sensor/PMW3901 \
 Sensor/VL53L1X \
 Sensor \
 USB_DEVICE/App \

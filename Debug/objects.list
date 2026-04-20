@@ -37,6 +37,7 @@
 "./Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.o"
 "./Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.o"
 "./Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.o"
+"./Sensor/PMW3901/pwm3901.o"
 "./Sensor/VL53L1X/vl53l1x_wrapper.o"
 "./Sensor/vl53l1_platform.o"
 "./USB_DEVICE/App/usb_device.o"
